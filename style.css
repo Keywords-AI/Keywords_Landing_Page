@@ -1,5 +1,5 @@
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: Inter;
     margin: 0;
 }
 
@@ -132,6 +132,32 @@ nav ul #careersGPT-link:hover {
     width: 100%;
     object-fit: cover;
 }
+
+#login[open] {
+    display: flex;
+    justify-content: center;
+    border: none;
+    border-radius:6px;
+}
+
+#login form {
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+}
+
+#login .input-group {
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.line-break {
+    flex-grow:1;
+    height:0;
+}
+
 
 #login::backdrop {
     background-color: rgba(0, 0, 0, 0.5);

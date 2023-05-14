@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keywords AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -36,12 +35,31 @@
             <img src="./AI_Ball.gif" alt="">
         </div>
     </div>
+
     <dialog id="login">
-        <form>
-            <div>Something Here</div>
+        <form action="/register">
+            <h1>Log In</h1>
+            <button formaction="/google-login">
+                <img src="./google.svg" alt="">
+                <span>Log in with Google</span>
+            </button>
+            <div class="line-break"></div>
+            <span>or</span>
+            <div class="input-group">
+                <input type="email" placeholder="Email address or username">
+                <div class="line-break"></div>
+                <input type="password" placeholder="Password">
+                <div class="line-break"></div>
+                <input type="submit" role="button">
+            </div>
+            <div>
+                <input type="radio" id="#keep-log-in">
+                <label for="#keep-log-in">Keep me logged in</label>
+            </div>
             <button id="close" formmethod="dialog">Close</button>
         </form>
     </dialog>
+
     <script src="app.js"></script>
 </body>
 </html>
