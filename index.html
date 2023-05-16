@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keywords AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -27,7 +28,7 @@
     </nav>
     <div class="container">
         <div class="text-container">
-            <h1>The <span>one stop</span> job search engine customized for you</h1>
+            <h1>The <span>one stop</span> job search engine <br> customized for you</h1>
             <p>Streamline your job search with an automated workflow</p>
             <button>Join Waitlist</button>
         </div>
@@ -35,31 +36,27 @@
             <img src="./AI_Ball.gif" alt="">
         </div>
     </div>
-
     <dialog id="login">
-        <form action="/register">
-            <h1>Log In</h1>
-            <button formaction="/google-login">
-                <img src="./google.svg" alt="">
-                <span>Log in with Google</span>
-            </button>
-            <div class="line-break"></div>
-            <span>or</span>
-            <div class="input-group">
-                <input type="email" placeholder="Email address or username">
-                <div class="line-break"></div>
-                <input type="password" placeholder="Password">
-                <div class="line-break"></div>
-                <input type="submit" role="button">
-            </div>
-            <div>
-                <input type="radio" id="#keep-log-in">
-                <label for="#keep-log-in">Keep me logged in</label>
-                <span>Don't </span>
-            </div>
+        <form>
+            <p id="login-title">Log in</p>
+            <input type="email" id="email" name="email" placeholder="Email address or username">
+            <input type="password" id="password" name="password" placeholder="Password">
+            <button id="login-btn" formmethod="dialog">Log in</button>
+            <p class="login-content">Keep me logged in</p>
+            <p class="login-content">Don't have an account?</p>
+            <a id="signup-link"class="login-content">Create Account</a>            
         </form>
     </dialog>
-
+    <dialog id="signup">
+        <form>
+            <p id="login-title">Sign Up</p>
+            <input type="email" id="email" name="email" placeholder="Email address or username">
+            <input type="password" id="password" name="password" placeholder="Password">
+            <button id="login-btn" formmethod="dialog">Sign up</button>
+            <p class="login-content">Already have an account?</p>
+            <a id="login-link" class="login-content">Log in</a>            
+        </form>
+    </dialog>
     <script src="app.js"></script>
 </body>
 </html>
