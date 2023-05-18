@@ -1,0 +1,97 @@
+{% block content %}
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keywords AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+</head>
+<body>
+    <!-- <img src="{% static './landing_overlay.png' %}" class="landing-picutre"> -->
+    <script crossorigin="anonymous"></script>
+    <nav>
+        <div class="logo">
+            <span>Keywords AI</span>
+        </div>
+        <ul>
+            <li><a href="">Contact</a></li>
+            <li><a href="">Pricing</a></li>
+            <li>
+                <img id="puzzle-pic" src="{% static './Vector.svg' %}" alt=""/>
+                <span id="careersGPT-link">Careers GPT</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="text-container">
+            <h1>The <span>one-stop</span> job search engine customized for you</h1>
+            <p>Streamline your job search with an automated workflow</p>  
+            <button id="wait-btn">Join Waitlist</button>
+            {% if user.is_authenticated %}
+                <br>
+              <p style="color: red">Congrats! You are already on the waitlist!</p>
+            {% elif ind == 1 %}
+                <br>
+              <p style="color: red">Congrats! You are already on the waitlist!</p>
+            {% endif %}
+        </div>
+        <div class="image-container">
+            <img src="{% static './AI_Ball.gif' %}" alt="">
+        </div>
+    </div>
+    <dialog id="login">
+        <form method="POST">
+            {% csrf_token %}
+            <p id="login-title">Log in</p>
+            <button id="google-btn" formaction="{% provider_login_url 'google' %}" href="{% provider_login_url 'google' %}">
+                <img src="{% static './google.svg' %}" alt="">
+                <span>Continue With Google</span>
+            </button>
+            <div class="section-container" style="display:flex; align-items: center;justify-content: center;">
+                <div class="line" style="height: 1px; width: 40%; border-top: solid;border-top-color:#919191;"></div>
+                <span id="login-or" style="width: 5px; color: #919191">or</span>
+                <div class="line" style="height: 1px; width: 40%;border-top: solid; border-top-color:#919191;"></div>
+            </div>
+            <!-- <p id="login-or">or</p> -->
+            <input type="email" id="email" name="email" placeholder="  Email address or username">
+            <input type="password" id="password" name="password" placeholder="  Password">
+            <button id="login-btn" type="submit" style="cursor: pointer;">Log in</button>
+            <p class="login-content">Don't have an account?</p>
+            <a id="signup-link" class="login-content" style="cursor: pointer;">Create Account</a>            
+        </form>
+    </dialog>
+    <dialog id="signup">
+        <form method="POST">
+            {% csrf_token %}
+            <p id="login-title">Sign Up</p>
+            <button id="google-btn" formaction="{% provider_login_url 'google' %}" href="{% provider_login_url 'google' %}">
+                <img src="{% static './google.svg' %}" alt="">
+                <span>Continue With Google</span>
+            </button>
+            <div class="section-container" style="display:flex; align-items: center;justify-content: center;">
+                <div class="line" style="height: 1px; width: 40%; border-top: solid;border-top-color:#919191;"></div>
+                <span id="login-or" style="width: 5px; color: #919191">or</span>
+                <div class="line" style="height: 1px; width: 40%;border-top: solid; border-top-color:#919191;"></div>
+            </div>
+            <input type="email" id="email" name="email" placeholder="  Email address or username">
+            <input type="password" id="password" name="password" placeholder="  Password">
+            <button id="login-btn" type="submit" style="cursor: pointer;">Sign up</button>
+            <p class="login-content">Already have an account?</p>
+            <a id="login-link" class="login-content" style="cursor: pointer;">Log in</a>            
+        </form>
+    </dialog>
+    <script src="{% static './app.js' %}"></script>
+</body>
+</html>
+
+{% endblock %}
