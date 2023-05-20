@@ -1,0 +1,107 @@
+sudo apt install python3.10
+sudo apt-get install python3-venv
+sudo apt-get install python-pip
+
+sudo apt-get upgrade
+sudo apt-get install nginx
+sudo apt install unzip
+
+mv /home/team/landing.zip .
+
+python3 -m venv /platform/landing_venv
+source /platform/landing_venv/bin/activate
+pip3 install uvicorn
+pip3 install gunicorn
+pip3 install -r landing/requirements.txt
+
+#edit rights
+sudo chmod 777 -R /platform
+
+#get django ready
+python manage.py collectstatic
+
+# Test with gunicorn
+gunicorn landing.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
+
+# Configerate gunicorn.service
+sudo nano /etc/systemd/system/gunicorn.service
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=yunruihuang3
+Group=sudo
+WorkingDirectory=/platform/landing
+ExecStart=/platform/landing_venv/bin/gunicorn landing.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind unix:/run/gunicorn.sock
+
+# Creating systemd Socket and Service Files for Gunicorn
+sudo nano /etc/systemd/system/gunicorn.socket
+
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+
+
+
+# Starting and enabeling
+sudo systemctl start gunicorn.socket
+sudo systemctl enable gunicorn.socket
+
+# Checking status of Gunicorn Socket File
+sudo systemctl status gunicorn.socket
+
+# Check Gunicorn Status
+sudo systemctl status gunicorn
+
+# Configuring nginx
+sudo nano /etc/nginx/sites-available/landing
+
+server {
+    listen 80;
+    server_name 34.133.34.163;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn.sock;
+        proxy_read_timeout 120s;
+        proxy_send_timeout 120s;
+        proxy_connect_timeout 120s;
+    }
+    location  /static/ {
+        root /platform/landing;
+    }
+
+    location  /media/ {
+        root /platform/landing;
+    }
+
+
+}
+
+#enable website
+sudo ln -s /etc/nginx/sites-available/landing /etc/nginx/sites-enabled/
+
+# Restart
+sudo systemctl daemon-reload
+sudo systemctl restart gunicorn
+sudo service nginx restart
+
+
+# SSL certificate
+
+sudo apt-get install python3-certbot-nginx
+sudo certbot --nginx -d keywordsai.co -d www.keywordsai.co -d app.keywordsai.co
+
+#update certificate
+
+sudo certbot renew --dry-run
